@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -41,6 +41,28 @@ const SignIn = () => {
 
     const classes = useStyles();
 
+    const [form, setForm] = useState({
+        "name": '',
+        "dob": '',
+        "id": '',
+        "acknowledge": false
+    });
+
+    const handleFieldUpdate = (e) => {
+        e.preventDefault()
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    const handleCheckUpdate = (e) => {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.checked
+        });
+    }
+
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -60,6 +82,8 @@ const SignIn = () => {
                                 id="name"
                                 label="Full Legal Name"
                                 name="name"
+                                value={form.name}
+                                onChange={handleFieldUpdate}
                                 fullWidth
                                 autoFocus
                             />
@@ -71,6 +95,8 @@ const SignIn = () => {
                                 id="dob"
                                 label="Date of Birth"
                                 name="dob"
+                                value={form.dob}
+                                onChange={handleFieldUpdate}
                                 fullWidth
                                 autoFocus
                             />
@@ -82,13 +108,15 @@ const SignIn = () => {
                                 id="id"
                                 label="WIT ID"
                                 name="id"
+                                value={form.id}
+                                onChange={handleFieldUpdate}
                                 fullWidth
                                 autoFocus
                             />
                         </Grid>
                         <Grid item xs={12} >
                             <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
+                                control={<Checkbox value="remember" color="primary" id="acknowledge" name="acknowledge" checked={form.acknowledge} onChange={handleCheckUpdate} />}
                                 label="I certify the provided information is my own and understand this system is for authorized use. "
                             />
                         </Grid>
