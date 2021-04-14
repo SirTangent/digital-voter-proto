@@ -116,6 +116,8 @@ const SignIn = () => {
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
                                     }}
+                                    fullWidth
+                                    autoFocus
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
