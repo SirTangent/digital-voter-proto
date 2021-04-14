@@ -19,6 +19,7 @@ import Container from '@material-ui/core/Container';
 import DateFnsUtils from '@date-io/date-fns';
 import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers'
 
+import DialogHelp from "./DialogHelp";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -53,6 +54,7 @@ const SignIn = () => {
         "id": '',
         "acknowledge": false
     });
+    const [openDialog, setOpenDialog] = React.useState(false);
 
     const handleFieldUpdate = (e) => {
         e.preventDefault()
@@ -75,6 +77,15 @@ const SignIn = () => {
             dob: e
         });
     }
+
+    // Open and close dialog
+    const handleClickOpen = () => {
+        setOpenDialog(true);
+    };
+
+    const handleClose = () => {
+        setOpenDialog(false);
+    };
 
     return (
         <Container component="main" maxWidth="xs">
@@ -155,14 +166,16 @@ const SignIn = () => {
                                 </Button>
                             </Grid>
                             <Grid item xs={12}>
-                                <Link href="#" variant="body2">
+                                <a href="#" variant="body2" onClick={handleClickOpen}>
                                     Need help?
-                                </Link>
+                                </a>
                             </Grid>
                         </Grid>
                     </MuiPickersUtilsProvider>
-
                 </form>
+
+                <DialogHelp open={openDialog} handleClose={handleClose}></DialogHelp>
+
             </div>
             <Box mt={8} className={classes.centerize}>
                 <p>Copyright 2021 AC Voting Group. This system is not affiliated with the United States Government or any legal system.</p>
