@@ -1,23 +1,125 @@
 import logo from './logo.svg';
 import './App.css';
 
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import HowToVoteIcon from '@material-ui/icons/HowToVote'
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: "#3333ff",
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(1, 0, 1),
+  },
+  centerize: {
+    textAlign: "center",
+  }
+}));
+
 function App() {
+
+  const classes = useStyles();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <HowToVoteIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Voter Portal Login
+          </Typography>
+          <form className={classes.form} noValidate>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    id="name"
+                    label="Full Legal Name"
+                    name="name"
+                    fullWidth
+                    autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                    variant="outlined"
+                    required
+                    id="dob"
+                    label="Date of Birth"
+                    name="dob"
+                    fullWidth
+                    autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                    variant="outlined"
+                    required
+                    id="ssn"
+                    label="Last 4 SSN"
+                    name="ssn"
+                    fullWidth
+                    autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} >
+                <FormControlLabel
+                    control={<Checkbox value="remember" color="primary" />}
+                    label="I certify the provided information is my own and understand this system is for authorized use. "
+                />
+              </Grid>
+              <Grid item xs={12} >
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                >
+                  Sign In / Register to Vote
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Link href="#" variant="body2">
+                  Need help?
+                </Link>
+              </Grid>
+            </Grid>
+
+          </form>
+        </div>
+        <Box mt={8} className={classes.centerize}>
+          <p>Copyright 2021 AC Voting Group. This system is not affiliated with the United States Government or any legal system.</p>
+        </Box>
+      </Container>
     </div>
   );
 }
