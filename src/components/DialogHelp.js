@@ -22,7 +22,7 @@ const DialogHelp = ({open, handleClose}) => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} color="primary">
-                    Contat Your District
+                    Contact Your District
                 </Button>
                 <Button onClick={handleClose} color="primary" autoFocus>
                     Close
