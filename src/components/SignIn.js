@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {Link as RouterLink} from "react-router-dom"
 import clsx from 'clsx';
 
 import Avatar from '@material-ui/core/Avatar';
@@ -160,15 +161,16 @@ const SignIn = () => {
                             </Grid>
                             
                             <Grid item xs={12} >
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.submit}
-                                >
-                                    Sign In / Register to Vote
-                                </Button>
+                                <RouterLink to="/vote/1">
+                                    <Button
+                                        fullWidth
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.submit}
+                                    >
+                                        Sign In / Register to Vote
+                                    </Button>
+                                </RouterLink>
                             </Grid>
 
                             <Grid item xs={12}>
