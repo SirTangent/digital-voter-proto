@@ -154,6 +154,11 @@ const SignIn = () => {
                                     label="I certify the provided information is my own and understand this system is for authorized use. "
                                 />
                             </Grid>
+
+                            <Grid item xs={12}>
+                                <div className="g-recaptcha" data-sitekey="6LesPaoaAAAAALo9omhPT07Ry6MrLHg_MuP9D1WA"></div>
+                            </Grid>
+                            
                             <Grid item xs={12} >
                                 <Button
                                     type="submit"
@@ -165,6 +170,7 @@ const SignIn = () => {
                                     Sign In / Register to Vote
                                 </Button>
                             </Grid>
+
                             <Grid item xs={12}>
                                 <a href="#" variant="body2" onClick={handleClickOpen}>
                                     Need help?
