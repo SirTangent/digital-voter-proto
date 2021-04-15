@@ -16,6 +16,7 @@ import {
 import clsx from "clsx";
 import DialogConfirmVote from "./DialogConfirmVote";
 import DialogHelp from "./DialogHelp";
+import {Link as RouterLink} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -29,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
     },
     selected: {
         border: 'tomato 4px solid'
+    },
+    m2: {
+        margin: '16px'
     }
 }));
 
@@ -106,6 +110,11 @@ const VoterForm = ({}) => {
                                 Review & Submit
                             </Button>
                         </Grid>
+                    </Grid>
+                    <Grid item xs={12} className={classes.m2}>
+                        <RouterLink to="/" variant="body2">
+                            Go Back
+                        </RouterLink>
                     </Grid>
                     <DialogConfirmVote open={openDialog} handleClose={handleClose} selection={selection}></DialogConfirmVote>
                 </Box>

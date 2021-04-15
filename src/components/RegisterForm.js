@@ -48,13 +48,14 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const SignIn = () => {
+const RegisterForm = () => {
 
     const classes = useStyles();
 
     const [form, setForm] = useState({
+        "name": '',
+        "dob": Date.now(),
         "id": '',
-        "pwd": '',
         "acknowledge": false
     });
     const [openDialog, setOpenDialog] = React.useState(false);
@@ -71,6 +72,13 @@ const SignIn = () => {
         setForm({
             ...form,
             [e.target.name]: e.target.checked
+        });
+    }
+
+    const handleDateUpdate = (e) => {
+        setForm({
+            ...form,
+            dob: e
         });
     }
 
@@ -91,7 +99,7 @@ const SignIn = () => {
                     <HowToVoteIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Voter Portal Login
+                    Voter Register
                 </Typography>
                 <form className={classes.form} noValidate>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -99,12 +107,56 @@ const SignIn = () => {
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
-                                    type="text"
+                                    required
+                                    id="name"
+                                    label="Full Legal Name"
+                                    name="name"
+                                    value={form.name}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <KeyboardDatePicker
+                                    disableToolbar
+                                    required
+                                    inputVariant="outlined"
+                                    format="MM/dd/yyyy"
+                                    id="dob"
+                                    name="dob"
+                                    label="Date of Birth"
+                                    value={form.dob}
+                                    onChange={handleDateUpdate}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change date',
+                                    }}
+                                    fullWidth
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    variant="outlined"
                                     required
                                     id="id"
-                                    label="Issued ID"
+                                    label="State ID #"
                                     name="id"
                                     value={form.id}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                    className={clsx(classes.margin, classes.textField)}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    id="address"
+                                    label="Residential Address"
+                                    name="address"
+                                    value={form.address}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -113,12 +165,37 @@ const SignIn = () => {
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
-                                    type="password"
                                     required
-                                    id="pwd"
-                                    label="Issued Passcode"
-                                    name="pwd"
-                                    value={form.pwd}
+                                    id="city"
+                                    label="City"
+                                    name="city"
+                                    value={form.city}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    id="state"
+                                    label="State"
+                                    name="state"
+                                    value={form.state}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    id="zip"
+                                    label="ZIP Code"
+                                    name="zip"
+                                    value={form.zip}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -144,21 +221,17 @@ const SignIn = () => {
                                         color="primary"
                                         className={classes.submit}
                                     >
-                                        Sign In
+                                        Submit Application
                                     </Button>
                                 </RouterLink>
                             </Grid>
 
-                            <Grid item xs={6}>
-                                <a href="#" variant="body2" onClick={handleClickOpen}>
-                                    Need help?
-                                </a>
-                            </Grid>
-                            <Grid item xs={6} className={classes.textAlignRight}>
-                                <RouterLink to="/register" variant="body2">
-                                    Register To Vote
+                            <Grid item xs={12}>
+                                <RouterLink to="/" variant="body2">
+                                    Go Back
                                 </RouterLink>
                             </Grid>
+
                         </Grid>
                     </MuiPickersUtilsProvider>
                 </form>
@@ -173,4 +246,4 @@ const SignIn = () => {
     );
 }
 
-export default SignIn;
+export default RegisterForm;

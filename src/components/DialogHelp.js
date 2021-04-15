@@ -17,12 +17,12 @@ const DialogHelp = ({open, handleClose}) => {
             <DialogTitle id="alert-dialog-title">{"Having trouble authenticating?"}</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    You will need to contact your district's ledger to resolve this issue.
+                    You will need to contact your district to resolve this issue.
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} color="primary">
-                    Contact Ledger
+                    Contat Your District
                 </Button>
                 <Button onClick={handleClose} color="primary" autoFocus>
                     Close
