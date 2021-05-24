@@ -22,6 +22,7 @@ import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers'
 
 import DialogHelp from "./DialogHelp";
 
+// Style constants for custom CSS
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -52,13 +53,18 @@ const SignIn = () => {
 
     const classes = useStyles();
 
+    // Set initial state and create method for changing state
     const [form, setForm] = useState({
         "id": '',
         "pwd": '',
         "acknowledge": false
     });
+    // Utility state for tacking dialog box
     const [openDialog, setOpenDialog] = React.useState(false);
 
+    // Updates the form state everytime the user changes the content of the input fields
+    // The state field to change depends on the name
+    // attribute of the input element. (Ex: name="foo" -> this.state.foo)
     const handleFieldUpdate = (e) => {
         e.preventDefault()
         setForm({
@@ -67,6 +73,9 @@ const SignIn = () => {
         });
     }
 
+    // Updates the form state everytime the user clicks a checkbox.
+    // The state field to change depends on the name
+    // attribute of the input element. (Ex: name="foo" -> this.state.foo)
     const handleCheckUpdate = (e) => {
         setForm({
             ...form,
@@ -74,15 +83,15 @@ const SignIn = () => {
         });
     }
 
-    // Open and close dialog
+    // Handlers to open and close dialog box.
     const handleClickOpen = () => {
         setOpenDialog(true);
     };
-
     const handleClose = () => {
         setOpenDialog(false);
     };
 
+    // Contains the JSX (HTML with JS) content this is displayed to the user
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -96,6 +105,7 @@ const SignIn = () => {
                 <form className={classes.form} noValidate>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <Grid container spacing={2}>
+                            {/*ID Field*/}
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
@@ -110,6 +120,7 @@ const SignIn = () => {
                                     autoFocus
                                 />
                             </Grid>
+                            {/*Passcode Box*/}
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
@@ -125,6 +136,7 @@ const SignIn = () => {
                                 />
                             </Grid>
 
+                            {/*Agreement Checkbox*/}
                             <Grid item xs={12} >
                                 <FormControlLabel
                                     control={<Checkbox value="remember" color="primary" id="acknowledge" name="acknowledge" checked={form.acknowledge} onChange={handleCheckUpdate} />}
@@ -132,10 +144,12 @@ const SignIn = () => {
                                 />
                             </Grid>
 
+                            {/*Captcha UI*/}
                             <Grid item xs={12}>
                                 <div className="g-recaptcha" data-sitekey="6LesPaoaAAAAALo9omhPT07Ry6MrLHg_MuP9D1WA"></div>
                             </Grid>
-                            
+
+                            {/*Sign in button*/}
                             <Grid item xs={12} >
                                 <RouterLink to="/vote/1">
                                     <Button
@@ -149,6 +163,7 @@ const SignIn = () => {
                                 </RouterLink>
                             </Grid>
 
+                            {/*Additional options*/}
                             <Grid item xs={6}>
                                 <a href="#" variant="body2" onClick={handleClickOpen}>
                                     Need help?
