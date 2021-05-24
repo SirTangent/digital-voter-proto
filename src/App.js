@@ -3,16 +3,20 @@ import './App.css';
 import React from "react";
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
-// Load components
+// Load from src/components folder
 import SignIn from "./components/SignIn";
 import VoterForm from "./components/VoterForm";
 import RegisterForm from "./components/RegisterForm";
 
 function App() {
 
+    // This is essentially the main() of the app.
+    // Everything below is rendered by the web browser.
   return (
       <BrowserRouter>
           <div className="App">
+              {/*Separates each page component by URI.*/}
+              {/*Ex: https://votingportal.com/register -> RegisterForm component*/}
             <Switch>
                 <Route exact path="/" component={SignIn}></Route>
                 <Route path="/vote/:electionid" component={VoterForm}></Route>
