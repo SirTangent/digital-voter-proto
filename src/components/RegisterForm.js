@@ -99,14 +99,34 @@ const RegisterForm = () => {
                     <HowToVoteIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Voter Register
+                    *state* Voter Register
                 </Typography>
                 <form className={classes.form} noValidate>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <Grid container spacing={2}>
+                            <Grid item xs ={12}>
+                                <FormControlLabel
+                                    control={<Checkbox value="citizen"
+                                                       color="primary"
+                                                       name="acknowledge"
+                                                       checked={form.acknowledge}
+                                                       onChange={handleCheckUpdate} />}
+                                    label="Are you a citizen of the United States of America?"
+                                />
+                            </Grid>
+                            <Grid item xs ={12}>
+                                <FormControlLabel
+                                    control={<Checkbox value="over eighteen"
+                                                       color="primary"
+                                                       name="acknowledge"
+                                                       checked={form.acknowledge}
+                                                       onChange={handleCheckUpdate} />}
+                                    label="Will you be 18 years of age on or before election day?"
+                                />
+                            </Grid>
                             <Grid item xs={12}>
                                 <TextField
-                                    variant="outlined"
+                                    variant="standard"
                                     required
                                     id="name"
                                     label="Full Legal Name"
@@ -204,7 +224,11 @@ const RegisterForm = () => {
 
                             <Grid item xs={12} >
                                 <FormControlLabel
-                                    control={<Checkbox value="remember" color="primary" id="acknowledge" name="acknowledge" checked={form.acknowledge} onChange={handleCheckUpdate} />}
+                                    control={<Checkbox value="authorize"
+                                                       color="primary"
+                                                       name="acknowledge"
+                                                       checked={form.acknowledge}
+                                                       onChange={handleCheckUpdate} />}
                                     label="I certify the provided information is my own and understand this system is for authorized use. "
                                 />
                             </Grid>
