@@ -137,6 +137,19 @@ const RegisterForm = () => {
                                     autoFocus
                                 />
                             </Grid>
+                            <Grid item xs={12}>
+                            <TextField
+                                variant="standard"
+                                required
+                                id="name"
+                                label="Enter Maiden Name/Former Name (if reporting a change of name)"
+                                name="name"
+                                value={form.name}
+                                onChange={handleFieldUpdate}
+                                fullWidth
+                                autoFocus
+                            />
+                        </Grid>
                             <Grid item xs={12} sm={6}>
                                 <KeyboardDatePicker
                                     disableToolbar
@@ -174,7 +187,7 @@ const RegisterForm = () => {
                                     variant="outlined"
                                     required
                                     id="address"
-                                    label="Residential Address"
+                                    label="Home Address"
                                     name="address"
                                     value={form.address}
                                     onChange={handleFieldUpdate}
