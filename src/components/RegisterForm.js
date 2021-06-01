@@ -21,6 +21,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers'
 
 import DialogHelp from "./DialogHelp";
+import {Check} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -56,7 +57,8 @@ const RegisterForm = () => {
         "name": '',
         "dob": Date.now(),
         "id": '',
-        "acknowledge": false
+        "acknowledge": false,
+        "legalName" : ''
     });
     const [openDialog, setOpenDialog] = React.useState(false);
 
@@ -105,52 +107,137 @@ const RegisterForm = () => {
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <Grid container spacing={2}>
                             <Grid item xs ={12}>
+                                <section>1) Are you a citizen of the United States of America?</section>
                                 <FormControlLabel
                                     control={<Checkbox value="citizen"
                                                        color="primary"
                                                        name="acknowledge"
                                                        checked={form.acknowledge}
                                                        onChange={handleCheckUpdate} />}
-                                    label="Are you a citizen of the United States of America?"
+                                    label="Yes"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox value="citizen"
+                                                       color="primary"
+                                                       name="acknowledge"
+                                                       checked={form.acknowledge}
+                                                       onChange={handleCheckUpdate} />}
+                                    label="No"
                                 />
                             </Grid>
                             <Grid item xs ={12}>
+                                <section>2) Will you be 18 years of age on or before election day?</section>
                                 <FormControlLabel
                                     control={<Checkbox value="over eighteen"
                                                        color="primary"
                                                        name="acknowledge"
                                                        checked={form.acknowledge}
                                                        onChange={handleCheckUpdate} />}
-                                    label="Will you be 18 years of age on or before election day?"
+                                    label="Yes"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox value="over eighteen"
+                                                       color="primary"
+                                                       name="acknowledge"
+                                                       checked={form.acknowledge}
+                                                       onChange={handleCheckUpdate} />}
+                                    label="No"
                                 />
                             </Grid>
                             <Grid item xs={12}>
+                                <section>3) Enter name</section>
                                 <TextField
                                     variant="standard"
                                     required
                                     id="name"
-                                    label="Full Legal Name"
+                                    label="First"
                                     name="name"
-                                    value={form.name}
+                                    value={form.legalName}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                />
+                                <TextField
+                                    variant="standard"
+                                    id="name"
+                                    label="Middle"
+                                    name="name"
+                                    value={form.legalName}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                />
+                                <TextField
+                                    variant="standard"
+                                    required
+                                    id="name"
+                                    label="Last"
+                                    name="name"
+                                    value={form.legalName}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                />
+                                <TextField
+                                    variant="standard"
+                                    required
+                                    id="name"
+                                    label="Suffix"
+                                    name="name"
+                                    value={form.legalName}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                            <TextField
-                                variant="standard"
-                                required
-                                id="name"
-                                label="Enter Maiden Name/Former Name (if reporting a change of name)"
-                                name="name"
-                                value={form.name}
-                                onChange={handleFieldUpdate}
-                                fullWidth
-                                autoFocus
-                            />
-                        </Grid>
+                                <section>4) Enter Maiden Name / Former Name (if reporting a change of name)</section>
+                                <TextField
+                                    variant="standard"
+                                    required
+                                    id="name"
+                                    label="First"
+                                    name="name"
+                                    value={form.legalName}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                />
+                                <TextField
+                                    variant="standard"
+                                    id="name"
+                                    label="Middle"
+                                    name="name"
+                                    value={form.legalName}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                />
+                                <TextField
+                                    variant="standard"
+                                    required
+                                    id="name"
+                                    label="Last"
+                                    name="name"
+                                    value={form.legalName}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                />
+                                <TextField
+                                    variant="standard"
+                                    required
+                                    id="name"
+                                    label="Suffix"
+                                    name="name"
+                                    value={form.legalName}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                />
+                            </Grid>
                             <Grid item xs={12} sm={6}>
+                                <section>5) Date of Birth</section>
                                 <KeyboardDatePicker
                                     disableToolbar
                                     required
@@ -158,7 +245,6 @@ const RegisterForm = () => {
                                     format="MM/dd/yyyy"
                                     id="dob"
                                     name="dob"
-                                    label="Date of Birth"
                                     value={form.dob}
                                     onChange={handleDateUpdate}
                                     KeyboardButtonProps={{
@@ -169,11 +255,52 @@ const RegisterForm = () => {
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
+                                <section>State ID #</section>
                                 <TextField
                                     variant="outlined"
                                     required
                                     id="id"
-                                    label="State ID #"
+                                    name="id"
+                                    value={form.id}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                    className={clsx(classes.margin, classes.textField)}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <section>6) Primary Telephone</section>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    id="id"
+                                    name="id"
+                                    value={form.id}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                    className={clsx(classes.margin, classes.textField)}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <section>7) Email Address</section>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    id="id"
+                                    name="id"
+                                    value={form.id}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                    className={clsx(classes.margin, classes.textField)}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <section>Last four of Social Security #"</section>
+                                <TextField
+                                    variant="outlined"
+                                    id="id"
                                     name="id"
                                     value={form.id}
                                     onChange={handleFieldUpdate}
@@ -183,6 +310,17 @@ const RegisterForm = () => {
                                 />
                             </Grid>
                             <Grid item xs={12}>
+                                <FormControlLabel
+                                    control={<Checkbox value="citizen"
+                                                       color="primary"
+                                                       name="acknowledge"
+                                                       checked={form.acknowledge}
+                                                       onChange={handleCheckUpdate} />}
+                                    label="I do not have an Alabama driver's license or Alabama non-driver ID or a Social Security number."
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <section>8) Addresses</section>
                                 <TextField
                                     variant="outlined"
                                     required
@@ -234,7 +372,129 @@ const RegisterForm = () => {
                                     autoFocus
                                 />
                             </Grid>
-
+                            <Grid item xs={12}>
+                                <section>9) Sex (choose one)</section>
+                                <FormControlLabel
+                                    control={<Checkbox value="address"
+                                                       color="primary"
+                                                       name="acknowledge"
+                                                       checked={form.acknowledge}
+                                                       onChange={handleCheckUpdate} />}
+                                    label="Male"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox value="address"
+                                                       color="primary"
+                                                       name="acknowledge"
+                                                       checked={form.acknowledge}
+                                                       onChange={handleCheckUpdate} />}
+                                    label="Female"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <section>10) Race (Choose one)</section>
+                                <FormControlLabel
+                                    control={<Checkbox value="address"
+                                                       color="primary"
+                                                       name="acknowledge"
+                                                       checked={form.acknowledge}
+                                                       onChange={handleCheckUpdate} />}
+                                    label="White"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox value="address"
+                                                       color="primary"
+                                                       name="acknowledge"
+                                                       checked={form.acknowledge}
+                                                       onChange={handleCheckUpdate} />}
+                                    label="Asian"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox value="address"
+                                                       color="primary"
+                                                       name="acknowledge"
+                                                       checked={form.acknowledge}
+                                                       onChange={handleCheckUpdate} />}
+                                    label="Hispanic"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox value="address"
+                                                       color="primary"
+                                                       name="acknowledge"
+                                                       checked={form.acknowledge}
+                                                       onChange={handleCheckUpdate} />}
+                                    label="Black"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox value="address"
+                                                       color="primary"
+                                                       name="acknowledge"
+                                                       checked={form.acknowledge}
+                                                       onChange={handleCheckUpdate} />}
+                                    label="Pacific Islander"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox value="address"
+                                                       color="primary"
+                                                       name="acknowledge"
+                                                       checked={form.acknowledge}
+                                                       onChange={handleCheckUpdate} />}
+                                    label="Other"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <section>11) Place of Birth</section>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    id="address"
+                                    label="Home Address"
+                                    name="address"
+                                    value={form.address}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    id="city"
+                                    label="City"
+                                    name="city"
+                                    value={form.city}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    id="state"
+                                    label="State"
+                                    name="state"
+                                    value={form.state}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    id="zip"
+                                    label="ZIP Code"
+                                    name="zip"
+                                    value={form.zip}
+                                    onChange={handleFieldUpdate}
+                                    fullWidth
+                                    autoFocus
+                                />
+                            </Grid>
                             <Grid item xs={12} >
                                 <FormControlLabel
                                     control={<Checkbox value="authorize"
@@ -243,6 +503,24 @@ const RegisterForm = () => {
                                                        checked={form.acknowledge}
                                                        onChange={handleCheckUpdate} />}
                                     label="I certify the provided information is my own and understand this system is for authorized use. "
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <KeyboardDatePicker
+                                    disableToolbar
+                                    required
+                                    inputVariant="outlined"
+                                    format="MM/dd/yyyy"
+                                    id="dob"
+                                    name="dob"
+                                    label="Today's Date"
+                                    value={form.dob}
+                                    onChange={handleDateUpdate}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change date',
+                                    }}
+                                    fullWidth
+                                    autoFocus
                                 />
                             </Grid>
 
