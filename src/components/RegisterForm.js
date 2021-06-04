@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(3),
     },
-    submit: {
+    continue: {
         margin: theme.spacing(1, 0, 1),
     },
     textAlignCenter: {
@@ -55,10 +55,30 @@ const RegisterForm = () => {
 
     const [form, setForm] = useState({
         "name": '',
-        "dob": Date.now(),
-        "id": '',
+        "dob": null,
+        "stateID": '',
         "acknowledge": false,
-        "legalName" : ''
+        "legalName" : '',
+        "race" : null,
+        "sex" : null,
+        "citizen" : null,
+        "ofLegalAge" : null,
+        "firstName" : null,
+        "lastName" : null,
+        "middleName" : null,
+        "suffix" : null,
+        "telephone" : null,
+        "email" : null,
+        "ssn" : null,
+        residentialAddress: undefined,
+        residentialCity: undefined,
+        residentialState: undefined,
+        residentialZip: undefined,
+        todaysDate: undefined,
+        birthZip: undefined,
+        birthState: undefined,
+        birthCity: undefined,
+        birthAddress: undefined
     });
     const [openDialog, setOpenDialog] = React.useState(false);
 
@@ -74,6 +94,13 @@ const RegisterForm = () => {
         setForm({
             ...form,
             [e.target.name]: e.target.checked
+        });
+    }
+
+    const handleGroupCheckUpdate = (e) => {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value
         });
     }
 
@@ -93,6 +120,8 @@ const RegisterForm = () => {
         setOpenDialog(false);
     };
 
+    //TODO: Data validation
+
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -109,82 +138,78 @@ const RegisterForm = () => {
                             <Grid item xs ={12}>
                                 <section>1) Are you a citizen of the United States of America?</section>
                                 <FormControlLabel
-                                    control={<Checkbox value="citizen"
+                                    control={<Checkbox value="Yes"
                                                        color="primary"
-                                                       name="acknowledge"
-                                                       checked={form.acknowledge}
-                                                       onChange={handleCheckUpdate} />}
+                                                       name="citizen"
+                                                       checked={form.citizen == "Yes"}
+                                                       onChange={handleGroupCheckUpdate} />}
                                     label="Yes"
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox value="citizen"
+                                    control={<Checkbox value="No"
                                                        color="primary"
-                                                       name="acknowledge"
-                                                       checked={form.acknowledge}
-                                                       onChange={handleCheckUpdate} />}
+                                                       name="citizen"
+                                                       checked={form.citizen == "No"}
+                                                       onChange={handleGroupCheckUpdate} />}
                                     label="No"
                                 />
                             </Grid>
                             <Grid item xs ={12}>
                                 <section>2) Will you be 18 years of age on or before election day?</section>
                                 <FormControlLabel
-                                    control={<Checkbox value="over eighteen"
+                                    control={<Checkbox value="Yes"
                                                        color="primary"
-                                                       name="acknowledge"
-                                                       checked={form.acknowledge}
-                                                       onChange={handleCheckUpdate} />}
+                                                       name="ofLegalAge"
+                                                       checked={form.ofLegalAge == "Yes"}
+                                                       onChange={handleGroupCheckUpdate} />}
                                     label="Yes"
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox value="over eighteen"
+                                    control={<Checkbox value="No"
                                                        color="primary"
-                                                       name="acknowledge"
-                                                       checked={form.acknowledge}
-                                                       onChange={handleCheckUpdate} />}
+                                                       name="ofLegalAge"
+                                                       checked={form.ofLegalAge == "No"}
+                                                       onChange={handleGroupCheckUpdate} />}
                                     label="No"
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <section>3) Enter name</section>
                                 <TextField
-                                    variant="standard"
+                                    variant="outlined"
                                     required
-                                    id="name"
                                     label="First"
-                                    name="name"
-                                    value={form.legalName}
+                                    name="firstName"
+                                    value={form.firstName}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
                                 />
                                 <TextField
-                                    variant="standard"
-                                    id="name"
+                                    variant="outlined"
                                     label="Middle"
-                                    name="name"
-                                    value={form.legalName}
+                                    name="middleName"
+                                    value={form.middleName}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
                                 />
                                 <TextField
-                                    variant="standard"
+                                    variant="outlined"
                                     required
-                                    id="name"
                                     label="Last"
-                                    name="name"
-                                    value={form.legalName}
+                                    name="lastName"
+                                    value={form.lastName}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
                                 />
                                 <TextField
-                                    variant="standard"
+                                    variant="outlined"
                                     required
-                                    id="name"
                                     label="Suffix"
-                                    name="name"
-                                    value={form.legalName}
+                                    name="suffix"
+                                    value={form.suffix}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -195,7 +220,6 @@ const RegisterForm = () => {
                                 <TextField
                                     variant="standard"
                                     required
-                                    id="name"
                                     label="First"
                                     name="name"
                                     value={form.legalName}
@@ -243,8 +267,6 @@ const RegisterForm = () => {
                                     required
                                     inputVariant="outlined"
                                     format="MM/dd/yyyy"
-                                    id="dob"
-                                    name="dob"
                                     value={form.dob}
                                     onChange={handleDateUpdate}
                                     KeyboardButtonProps={{
@@ -258,10 +280,8 @@ const RegisterForm = () => {
                                 <section>State ID #</section>
                                 <TextField
                                     variant="outlined"
-                                    required
-                                    id="id"
-                                    name="id"
-                                    value={form.id}
+                                    name="stateID"
+                                    value={form.stateID}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -273,9 +293,8 @@ const RegisterForm = () => {
                                 <TextField
                                     variant="outlined"
                                     required
-                                    id="id"
-                                    name="id"
-                                    value={form.id}
+                                    name="telephone"
+                                    value={form.telephone}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -287,9 +306,8 @@ const RegisterForm = () => {
                                 <TextField
                                     variant="outlined"
                                     required
-                                    id="id"
-                                    name="id"
-                                    value={form.id}
+                                    name="email"
+                                    value={form.email}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -300,9 +318,8 @@ const RegisterForm = () => {
                                 <section>Last four of Social Security #"</section>
                                 <TextField
                                     variant="outlined"
-                                    id="id"
-                                    name="id"
-                                    value={form.id}
+                                    name="ssn"
+                                    value={form.ssn}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -311,8 +328,7 @@ const RegisterForm = () => {
                             </Grid>
                             <Grid item xs={12}>
                                 <FormControlLabel
-                                    control={<Checkbox value="citizen"
-                                                       color="primary"
+                                    control={<Checkbox color="primary"
                                                        name="acknowledge"
                                                        checked={form.acknowledge}
                                                        onChange={handleCheckUpdate} />}
@@ -324,10 +340,10 @@ const RegisterForm = () => {
                                 <TextField
                                     variant="outlined"
                                     required
-                                    id="address"
-                                    label="Home Address"
+                                    name="residentialAddress"
+                                    label="Home Address (include apartment or other unit number  if applicable)"
                                     name="address"
-                                    value={form.address}
+                                    value={form.residentialAddress}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -337,10 +353,9 @@ const RegisterForm = () => {
                                 <TextField
                                     variant="outlined"
                                     required
-                                    id="city"
                                     label="City"
-                                    name="city"
-                                    value={form.city}
+                                    name="residentialCity"
+                                    value={form.residentialCity}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -350,10 +365,9 @@ const RegisterForm = () => {
                                 <TextField
                                     variant="outlined"
                                     required
-                                    id="state"
                                     label="State"
-                                    name="state"
-                                    value={form.state}
+                                    name="residentialState"
+                                    value={form.residentialState}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -363,10 +377,9 @@ const RegisterForm = () => {
                                 <TextField
                                     variant="outlined"
                                     required
-                                    id="zip"
-                                    label="ZIP Code"
-                                    name="zip"
-                                    value={form.zip}
+                                    label="Zip Code"
+                                    name="residentialZip"
+                                    value={form.residentialZip}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -375,70 +388,70 @@ const RegisterForm = () => {
                             <Grid item xs={12}>
                                 <section>9) Sex (choose one)</section>
                                 <FormControlLabel
-                                    control={<Checkbox value="address"
+                                    control={<Checkbox value="Male"
                                                        color="primary"
-                                                       name="acknowledge"
-                                                       checked={form.acknowledge}
-                                                       onChange={handleCheckUpdate} />}
+                                                       name="sex"
+                                                       checked={form.sex == "Male"}
+                                                       onChange={handleGroupCheckUpdate} />}
                                     label="Male"
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox value="address"
+                                    control={<Checkbox value="Female"
                                                        color="primary"
-                                                       name="acknowledge"
-                                                       checked={form.acknowledge}
-                                                       onChange={handleCheckUpdate} />}
+                                                       name="sex"
+                                                       checked={form.sex == "Female"}
+                                                       onChange={handleGroupCheckUpdate} />}
                                     label="Female"
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <section>10) Race (Choose one)</section>
                                 <FormControlLabel
-                                    control={<Checkbox value="address"
+                                    control={<Checkbox value="White"
                                                        color="primary"
-                                                       name="acknowledge"
-                                                       checked={form.acknowledge}
-                                                       onChange={handleCheckUpdate} />}
+                                                       name="race"
+                                                       checked={form.race == "White"}
+                                                       onChange={handleGroupCheckUpdate} />}
                                     label="White"
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox value="address"
+                                    control={<Checkbox value="Asian"
                                                        color="primary"
-                                                       name="acknowledge"
-                                                       checked={form.acknowledge}
-                                                       onChange={handleCheckUpdate} />}
+                                                       name="race"
+                                                       checked={form.race == "Asian"}
+                                                       onChange={handleGroupCheckUpdate} />}
                                     label="Asian"
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox value="address"
+                                    control={<Checkbox value="Hispanic"
                                                        color="primary"
-                                                       name="acknowledge"
-                                                       checked={form.acknowledge}
-                                                       onChange={handleCheckUpdate} />}
+                                                       name="race"
+                                                       checked={form.race == "Hispanic"}
+                                                       onChange={handleGroupCheckUpdate} />}
                                     label="Hispanic"
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox value="address"
+                                    control={<Checkbox value="Black"
                                                        color="primary"
-                                                       name="acknowledge"
-                                                       checked={form.acknowledge}
-                                                       onChange={handleCheckUpdate} />}
+                                                       name="race"
+                                                       checked={form.race == "Black"}
+                                                       onChange={handleGroupCheckUpdate} />}
                                     label="Black"
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox value="address"
+                                    control={<Checkbox value="Pacific Islander"
                                                        color="primary"
-                                                       name="acknowledge"
-                                                       checked={form.acknowledge}
-                                                       onChange={handleCheckUpdate} />}
+                                                       name="race"
+                                                       checked={form.race == "Pacific Islander"}
+                                                       onChange={handleGroupCheckUpdate} />}
                                     label="Pacific Islander"
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox value="address"
+                                    control={<Checkbox value="Other"
                                                        color="primary"
-                                                       name="acknowledge"
-                                                       checked={form.acknowledge}
-                                                       onChange={handleCheckUpdate} />}
+                                                       name="race"
+                                                       checked={form.race == "Other"}
+                                                       onChange={handleGroupCheckUpdate} />}
                                     label="Other"
                                 />
                             </Grid>
@@ -447,10 +460,9 @@ const RegisterForm = () => {
                                 <TextField
                                     variant="outlined"
                                     required
-                                    id="address"
-                                    label="Home Address"
-                                    name="address"
-                                    value={form.address}
+                                    label="Address"
+                                    name="birthAddress"
+                                    value={form.birthAddress}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -460,10 +472,9 @@ const RegisterForm = () => {
                                 <TextField
                                     variant="outlined"
                                     required
-                                    id="city"
                                     label="City"
-                                    name="city"
-                                    value={form.city}
+                                    name="birthCity"
+                                    value={form.birthCity}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -475,8 +486,8 @@ const RegisterForm = () => {
                                     required
                                     id="state"
                                     label="State"
-                                    name="state"
-                                    value={form.state}
+                                    name="birthState"
+                                    value={form.birthState}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -486,10 +497,9 @@ const RegisterForm = () => {
                                 <TextField
                                     variant="outlined"
                                     required
-                                    id="zip"
-                                    label="ZIP Code"
-                                    name="zip"
-                                    value={form.zip}
+                                    label="Zip Code"
+                                    name="birthZip"
+                                    value={form.birthZip}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -511,10 +521,9 @@ const RegisterForm = () => {
                                     required
                                     inputVariant="outlined"
                                     format="MM/dd/yyyy"
-                                    id="dob"
-                                    name="dob"
+                                    name="todaysDate"
                                     label="Today's Date"
-                                    value={form.dob}
+                                    value={form.todaysDate}
                                     onChange={handleDateUpdate}
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
@@ -522,6 +531,9 @@ const RegisterForm = () => {
                                     fullWidth
                                     autoFocus
                                 />
+                            </Grid>
+                            <Grid>
+                                <section>If you falsely sign this statement you can be convicted and imprisoned for up to five years. The decision to register to vote is yours. if you decide to register to vote , the office at which you are submitting this application will remain confidential and will be used only for registration purposes. If you decline to register to vote, your decision will remain confidential and will be sued only for voter registration purposes.</section>
                             </Grid>
 
                             <Grid item xs={12}>
@@ -534,9 +546,9 @@ const RegisterForm = () => {
                                         fullWidth
                                         variant="contained"
                                         color="primary"
-                                        className={classes.submit}
+                                        className={classes.continue}
                                     >
-                                        Submit Application
+                                        Continue Application
                                     </Button>
                                 </RouterLink>
                             </Grid>
