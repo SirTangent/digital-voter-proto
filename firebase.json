@@ -5,6 +5,7 @@
   },
   "functions": {
     "predeploy": [
+      "yarn build",
       "npm --prefix \"$RESOURCE_DIR\" run lint"
     ]
   },
@@ -44,8 +45,5 @@
     "ui": {
       "enabled": true
     }
-  },
-  "remoteconfig": {
-    "template": "remoteconfig.template.json"
   }
 }
