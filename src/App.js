@@ -7,6 +7,8 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import SignIn from "./components/SignIn";
 import VoterForm from "./components/VoterForm";
 import RegisterForm from "./components/RegisterForm";
+import Ballot from "./components/Ballot";
+import VoterIdDocuments from "./components/VoterIdDocuments";
 
 function App() {
 
@@ -18,6 +20,7 @@ function App() {
               {/*Separates each page component by URI.*/}
               {/*Ex: https://votingportal.com/register -> RegisterForm component*/}
             <Switch>
+
                 <Route exact path="/" component={SignIn}></Route>
                 <Route path="/vote/:electionid" component={VoterForm}></Route>
                 <Route path="/register" component={RegisterForm}></Route>
