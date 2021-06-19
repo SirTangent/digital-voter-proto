@@ -21,7 +21,7 @@ function App() {
               {/*Ex: https://votingportal.com/register -> RegisterForm component*/}
             <Switch>
 
-                <Route exact path="/" component={SignIn}></Route>
+                <Route exact path="/" component={Ballot}></Route>
                 <Route path="/vote/:electionid" component={VoterForm}></Route>
                 <Route path="/register" component={RegisterForm}></Route>
             </Switch>
