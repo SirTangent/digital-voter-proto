@@ -8,7 +8,10 @@ import SignIn from "./components/SignIn";
 import VoterForm from "./components/VoterForm";
 import RegisterForm from "./components/RegisterForm";
 
-import {firestore} from "./firebase/firebase"
+import {firestore} from "./firebase/firebase";
+
+import schema from "./firebase/handlers/demo";
+import {sex, isBoundedNumber, isNumber} from "./firebase/type-validators";
 
 class App extends React.Component {
     constructor(props) {
@@ -19,6 +22,9 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+
+        console.log(isBoundedNumber(18,100, true)("3e"));
+
         // Testing listener
         firestore.collection("test_collection").onSnapshot((snapshot) => {
           snapshot.forEach((doc) => {
