@@ -7,6 +7,8 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import SignIn from "./components/SignIn";
 import VoterForm from "./components/VoterForm";
 import RegisterForm from "./components/RegisterForm";
+import Ballot from "./components/Ballot";
+import VoterIdDocuments from "./components/VoterIdDocuments";
 
 import {firestore} from "./firebase/firebase";
 
