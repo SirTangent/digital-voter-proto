@@ -93,7 +93,36 @@ const VoterIdDocuments = () => {
                                 <li>A U.S Citizen</li>
                                 <li>A resident of Alabama</li>
                             </ul>
-
+                        </Grid>
+                        <Grid>
+                            <section>
+                                In order to properly identify yourself. Please upload a photo of a valid form of ID. A valid form of ID can be one of the following:
+                            </section>
+                            <ul>
+                                <li>Valid Alabama Driver’s License (not expired or has been expired less than 60 days)</li>
+                                <li>Alabama Law Enforcement Agency Digital Driver’s License</li>
+                                <li>Valid Alabama Nondriver ID (not expired or has been expired less than 60 days)</li>
+                                <li>Alabama Law Enforcement Agency Digital Nondriver ID</li>
+                                <li>Valid Alabama Photo Voter ID Card</li>
+                                <li>Valid State-Issued ID (Alabama or any other state)</li>
+                                <li>Valid Federal-Issued ID</li>
+                                <li>Valid US passport</li>
+                                <li>Valid Employee ID from Federal Government, State of Alabama, County, Municipality, Board, or other entity of this state</li>
+                                <li>Valid student or employee ID from a public or private college or university in the State of Alabama (including postgraduate technical or professional schools)</li>
+                                <li>Valid student or employee ID issued by a state institution of higher learning in any other state</li>
+                                <li>Valid Military ID</li>
+                                <li>Valid Tribal ID</li>
+                            </ul>
+                            <Button
+                                variant="contained"
+                                component="label"
+                            >
+                                Upload File
+                                <input
+                                    type="file"
+                                    hidden
+                                />
+                            </Button>
                         </Grid>
                     </MuiPickersUtilsProvider>
                 </form>

@@ -9,6 +9,7 @@ import VoterForm from "./components/VoterForm";
 import RegisterForm from "./components/RegisterForm";
 import Ballot from "./components/Ballot";
 import VoterIdDocuments from "./components/VoterIdDocuments";
+import Authentication from "./components/Authentication";
 
 function App() {
 
@@ -20,10 +21,12 @@ function App() {
               {/*Separates each page component by URI.*/}
               {/*Ex: https://votingportal.com/register -> RegisterForm component*/}
             <Switch>
-
-                <Route exact path="/" component={Ballot}></Route>
+                <Route exact path="/" component={SignIn}></Route>
                 <Route path="/vote/:electionid" component={VoterForm}></Route>
-                <Route path="/register" component={RegisterForm}></Route>
+                <Route path="/registration" component={RegisterForm}></Route>
+                <Route path="/voter-documents" component={VoterIdDocuments}></Route>
+                <Route path="/authentication" component={Authentication}></Route>
+                <Route path="/ballot" component={Ballot}></Route>
             </Switch>
           </div>
       </BrowserRouter>
