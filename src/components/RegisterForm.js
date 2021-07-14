@@ -526,7 +526,7 @@ const RegisterForm = () => {
                             </Grid>
                             
                             <Grid item xs={12} >
-                                <RouterLink to="/VoterDocuments">
+                                <RouterLink to="/voter-documents">
                                     <Button
                                         fullWidth
                                         variant="contained"

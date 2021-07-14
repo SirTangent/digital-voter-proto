@@ -4,6 +4,7 @@ import React from "react";
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 // Load from src/components folder
+import Welcome from "./components/Welcome";
 import SignIn from "./components/SignIn";
 import VoterForm from "./components/VoterForm";
 import RegisterForm from "./components/RegisterForm";
@@ -21,7 +22,8 @@ function App() {
               {/*Separates each page component by URI.*/}
               {/*Ex: https://votingportal.com/register -> RegisterForm component*/}
             <Switch>
-                <Route exact path="/" component={SignIn}></Route>
+                <Route exact path="/" component={Welcome}></Route>
+                <Route path="/signIn"component={SignIn}></Route>
                 <Route path="/vote/:electionid" component={VoterForm}></Route>
                 <Route path="/registration" component={RegisterForm}></Route>
                 <Route path="/voter-documents" component={VoterIdDocuments}></Route>
