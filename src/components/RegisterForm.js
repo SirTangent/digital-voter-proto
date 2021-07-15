@@ -137,22 +137,7 @@ const RegisterForm = () => {
                         <Grid container spacing={2}>
                             <Grid item xs ={12}>
                                 <section>1) Are you a citizen of the United States of America?</section>
-                                <FormControlLabel
-                                    control={<Checkbox value="Yes"
-                                                       color="primary"
-                                                       name="citizen"
-                                                       checked={form.citizen == "Yes"}
-                                                       onChange={handleGroupCheckUpdate} />}
-                                    label="Yes"
-                                />
-                                <FormControlLabel
-                                    control={<Checkbox value="No"
-                                                       color="primary"
-                                                       name="citizen"
-                                                       checked={form.citizen == "No"}
-                                                       onChange={handleGroupCheckUpdate} />}
-                                    label="No"
-                                />
+                                C
                             </Grid>
                             <Grid item xs ={12}>
                                 <section>2) Will you be 18 years of age on or before election day?</section>
@@ -541,7 +526,7 @@ const RegisterForm = () => {
                             </Grid>
                             
                             <Grid item xs={12} >
-                                <RouterLink to="/vote/1">
+                                <RouterLink to="/voter-documents">
                                     <Button
                                         fullWidth
                                         variant="contained"

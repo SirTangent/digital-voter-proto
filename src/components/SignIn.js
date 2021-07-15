@@ -100,7 +100,7 @@ const SignIn = () => {
                     <HowToVoteIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Voter Portal Login
+                    Alabama Online Voting Portal
                 </Typography>
                 <form className={classes.form} noValidate>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -151,7 +151,7 @@ const SignIn = () => {
 
                             {/*Sign in button*/}
                             <Grid item xs={12} >
-                                <RouterLink to="/vote/1">
+                                <RouterLink to="/authentication">
                                     <Button
                                         fullWidth
                                         variant="contained"
@@ -170,7 +170,7 @@ const SignIn = () => {
                                 </a>
                             </Grid>
                             <Grid item xs={6} className={classes.textAlignRight}>
-                                <RouterLink to="/register" variant="body2">
+                                <RouterLink to="/registration" variant="body2">
                                     Register To Vote
                                 </RouterLink>
                             </Grid>

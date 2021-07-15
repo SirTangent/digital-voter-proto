@@ -4,11 +4,13 @@ import React from "react";
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 // Load from src/components folder
+import Welcome from "./components/Welcome";
 import SignIn from "./components/SignIn";
 import VoterForm from "./components/VoterForm";
 import RegisterForm from "./components/RegisterForm";
 import Ballot from "./components/Ballot";
 import VoterIdDocuments from "./components/VoterIdDocuments";
+import Authentication from "./components/Authentication";
 
 import {firestore} from "./firebase/firebase";
 
