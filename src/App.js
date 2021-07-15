@@ -12,28 +12,48 @@ import Ballot from "./components/Ballot";
 import VoterIdDocuments from "./components/VoterIdDocuments";
 import Authentication from "./components/Authentication";
 
-function App() {
+import {firestore} from "./firebase/firebase";
 
-    // This is essentially the main() of the app.
-    // Everything below is rendered by the web browser.
-  return (
-      <BrowserRouter>
-          <div className="App">
-              {/*Separates each page component by URI.*/}
-              {/*Ex: https://votingportal.com/register -> RegisterForm component*/}
-            <Switch>
-                <Route exact path="/" component={Welcome}></Route>
-                <Route path="/signIn"component={SignIn}></Route>
-                <Route path="/vote/:electionid" component={VoterForm}></Route>
-                <Route path="/registration" component={RegisterForm}></Route>
-                <Route path="/voter-documents" component={VoterIdDocuments}></Route>
-                <Route path="/authentication" component={Authentication}></Route>
-                <Route path="/ballot" component={Ballot}></Route>
-            </Switch>
-          </div>
-      </BrowserRouter>
+import schema from "./firebase/handlers/demo";
+import {sex, isBoundedNumber, isNumber} from "./firebase/type-validators";
 
-  )
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            test: null
+        };
+    }
+
+    componentDidMount() {
+
+        console.log(isBoundedNumber(18,100, true)("3e"));
+
+        // Testing listener
+        firestore.collection("test_collection").onSnapshot((snapshot) => {
+          snapshot.forEach((doc) => {
+              console.log(doc.data())
+          })
+        })
+    }
+
+    render() {
+        return (
+            <BrowserRouter>
+                <div className="App">
+                    {/*Separates each page component by URI.*/}
+                    {/*Ex: https://votingportal.com/register -> RegisterForm component*/}
+                    <Switch>
+                        <Route exact path="/" component={SignIn}></Route>
+                        <Route path="/vote/:electionid" component={VoterForm}></Route>
+                        <Route path="/register" component={RegisterForm}></Route>
+                    </Switch>
+                </div>
+            </BrowserRouter>
+
+        )
+    }
+
 }
 
 export default App;
