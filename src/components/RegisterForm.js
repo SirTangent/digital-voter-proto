@@ -21,9 +21,9 @@ import DateFnsUtils from '@date-io/date-fns';
 import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers'
 
 import DialogHelp from "./DialogHelp";
-import {Check} from "@material-ui/icons";
 
-import {races, sexes} from '../firebase/schema/Registration'
+import registerSchema, {races, sexes} from '../firebase/schema/Registration'
+import {postRegistrationForm} from "../firebase/registration";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const RegisterForm = () => {
+const RegisterForm = ({district = ""}) => {
 
     const classes = useStyles();
 
@@ -124,6 +124,7 @@ const RegisterForm = () => {
     };
 
     //TODO: Data validation
+    //TODO: Partial performance deterioration
 
     return (
         <Container component="main" maxWidth="xs">
@@ -133,7 +134,7 @@ const RegisterForm = () => {
                     <HowToVoteIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    *state* Voter Register
+                    {district} Voter Register
                 </Typography>
                 <form className={classes.form} noValidate>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -505,12 +506,13 @@ const RegisterForm = () => {
                             </Grid>
                             
                             <Grid item xs={12} >
-                                <RouterLink to="/voter-documents">
+                                <RouterLink to="#">
                                     <Button
                                         fullWidth
                                         variant="contained"
                                         color="primary"
                                         className={classes.continue}
+                                        onClick={() => {postRegistrationForm(form, (data) => {console.log(data)})}}
                                     >
                                         Continue Application
                                     </Button>
