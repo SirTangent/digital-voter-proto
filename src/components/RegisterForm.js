@@ -23,6 +23,8 @@ import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers'
 import DialogHelp from "./DialogHelp";
 import {Check} from "@material-ui/icons";
 
+import {races, sexes} from '../firebase/schema/Registration'
+
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -98,6 +100,7 @@ const RegisterForm = () => {
     }
 
     const handleGroupCheckUpdate = (e) => {
+        console.log(e.target.name)
         setForm({
             ...form,
             [e.target.name]: e.target.value
@@ -137,7 +140,22 @@ const RegisterForm = () => {
                         <Grid container spacing={2}>
                             <Grid item xs ={12}>
                                 <section>1) Are you a citizen of the United States of America?</section>
-                                C
+                                <FormControlLabel
+                                    control={<Checkbox value="Yes"
+                                                       color="primary"
+                                                       name="citizen"
+                                                       checked={form.citizen == "Yes"}
+                                                       onChange={handleGroupCheckUpdate} />}
+                                    label="Yes"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox value="No"
+                                                       color="primary"
+                                                       name="citizen"
+                                                       checked={form.citizen == "No"}
+                                                       onChange={handleGroupCheckUpdate} />}
+                                    label="No"
+                                />
                             </Grid>
                             <Grid item xs ={12}>
                                 <section>2) Will you be 18 years of age on or before election day?</section>
@@ -372,73 +390,34 @@ const RegisterForm = () => {
                             </Grid>
                             <Grid item xs={12}>
                                 <section>9) Sex (choose one)</section>
-                                <FormControlLabel
-                                    control={<Checkbox value="Male"
-                                                       color="primary"
-                                                       name="sex"
-                                                       checked={form.sex == "Male"}
-                                                       onChange={handleGroupCheckUpdate} />}
-                                    label="Male"
-                                />
-                                <FormControlLabel
-                                    control={<Checkbox value="Female"
-                                                       color="primary"
-                                                       name="sex"
-                                                       checked={form.sex == "Female"}
-                                                       onChange={handleGroupCheckUpdate} />}
-                                    label="Female"
-                                />
+                                {
+                                    sexes.map((sex, idx) => (
+                                        <FormControlLabel
+                                            control={<Checkbox value={sex}
+                                                               color="primary"
+                                                               name="sex"
+                                                               checked={form.sex == sex}
+                                                               onChange={handleGroupCheckUpdate} />}
+                                            label={sex}
+                                        />
+                                    ))
+                                }
                             </Grid>
                             <Grid item xs={12}>
                                 <section>10) Race (Choose one)</section>
-                                <FormControlLabel
-                                    control={<Checkbox value="White"
-                                                       color="primary"
-                                                       name="race"
-                                                       checked={form.race == "White"}
-                                                       onChange={handleGroupCheckUpdate} />}
-                                    label="White"
-                                />
-                                <FormControlLabel
-                                    control={<Checkbox value="Asian"
-                                                       color="primary"
-                                                       name="race"
-                                                       checked={form.race == "Asian"}
-                                                       onChange={handleGroupCheckUpdate} />}
-                                    label="Asian"
-                                />
-                                <FormControlLabel
-                                    control={<Checkbox value="Hispanic"
-                                                       color="primary"
-                                                       name="race"
-                                                       checked={form.race == "Hispanic"}
-                                                       onChange={handleGroupCheckUpdate} />}
-                                    label="Hispanic"
-                                />
-                                <FormControlLabel
-                                    control={<Checkbox value="Black"
-                                                       color="primary"
-                                                       name="race"
-                                                       checked={form.race == "Black"}
-                                                       onChange={handleGroupCheckUpdate} />}
-                                    label="Black"
-                                />
-                                <FormControlLabel
-                                    control={<Checkbox value="Pacific Islander"
-                                                       color="primary"
-                                                       name="race"
-                                                       checked={form.race == "Pacific Islander"}
-                                                       onChange={handleGroupCheckUpdate} />}
-                                    label="Pacific Islander"
-                                />
-                                <FormControlLabel
-                                    control={<Checkbox value="Other"
-                                                       color="primary"
-                                                       name="race"
-                                                       checked={form.race == "Other"}
-                                                       onChange={handleGroupCheckUpdate} />}
-                                    label="Other"
-                                />
+
+                                {
+                                    races.map((race, idx) => (
+                                        <FormControlLabel key={idx}
+                                            control={<Checkbox value={race}
+                                                               color="primary"
+                                                               name="race"
+                                                               checked={form.race == race}
+                                                               onChange={handleGroupCheckUpdate} />}
+                                            label={race}
+                                        />
+                                    ))
+                                }
                             </Grid>
                             <Grid item xs={12}>
                                 <section>11) Place of Birth</section>

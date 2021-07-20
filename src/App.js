@@ -50,7 +50,7 @@ class App extends React.Component {
                     <Switch>
                         <Route exact path="/" component={SignIn}></Route>
                         <Route path="/vote/:electionid" component={VoterForm}></Route>
-                        <Route path="/register" component={RegisterForm}></Route>
+                        <Route path="/registration" component={RegisterForm}></Route>
                     </Switch>
                 </div>
             </BrowserRouter>
