@@ -23,7 +23,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        
+
     }
 
     render() {
@@ -35,7 +35,7 @@ class App extends React.Component {
                     <Switch>
                         <Route exact path="/" component={SignIn}></Route>
                         <Route path="/vote/:electionid" component={VoterForm}></Route>
-                        <Route path="/registration" component={RegisterForm}></Route>
+                        <Route path="/register" render={() => <RegisterForm district="Alabama"/> }></Route>
                     </Switch>
                 </div>
             </BrowserRouter>
