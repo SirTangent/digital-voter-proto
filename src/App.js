@@ -14,8 +14,7 @@ import Authentication from "./components/Authentication";
 
 import {firestore} from "./firebase/firebase";
 
-import schema from "./firebase/handlers/demo";
-import {sex, isBoundedNumber, isNumber} from "./firebase/type-validators";
+import ValidateUserDemo from "./firebase/schemas/UserDemo";
 
 class App extends React.Component {
     constructor(props) {
@@ -27,7 +26,12 @@ class App extends React.Component {
 
     componentDidMount() {
 
-        console.log(isBoundedNumber(18,100, true)("3e"));
+        const test = {
+            name: "Omar",
+            age: -2
+        }
+
+        console.log("debug: ",ValidateUserDemo(test), ValidateUserDemo.errors)
 
         // Testing listener
         firestore.collection("test_collection").onSnapshot((snapshot) => {
