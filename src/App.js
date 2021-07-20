@@ -14,8 +14,6 @@ import Authentication from "./components/Authentication";
 
 import {firestore} from "./firebase/firebase";
 
-import ValidateUserDemo from "./firebase/schemas/UserDemo";
-
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -25,20 +23,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-
-        const test = {
-            name: "Omar",
-            age: -2
-        }
-
-        console.log("debug: ",ValidateUserDemo(test), ValidateUserDemo.errors)
-
-        // Testing listener
-        firestore.collection("test_collection").onSnapshot((snapshot) => {
-          snapshot.forEach((doc) => {
-              console.log(doc.data())
-          })
-        })
+        
     }
 
     render() {
