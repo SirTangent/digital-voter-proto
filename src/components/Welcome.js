@@ -61,7 +61,7 @@ const Welcome = () => {
             </div>
             <section>Please choose from the following selections</section>
             <Grid item xs={12}>
-                <RouterLink to="/registration">
+                <RouterLink to="/register">
                     <Button
                         fullWidth
                         variant="contained"

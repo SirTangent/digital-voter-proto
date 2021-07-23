@@ -14,9 +14,6 @@ import Authentication from "./components/Authentication";
 
 import {firestore} from "./firebase/firebase";
 
-import schema from "./firebase/handlers/demo";
-import {sex, isBoundedNumber, isNumber} from "./firebase/type-validators";
-
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -27,14 +24,6 @@ class App extends React.Component {
 
     componentDidMount() {
 
-        console.log(isBoundedNumber(18,100, true)("3e"));
-
-        // Testing listener
-        firestore.collection("test_collection").onSnapshot((snapshot) => {
-          snapshot.forEach((doc) => {
-              console.log(doc.data())
-          })
-        })
     }
 
     render() {
@@ -46,7 +35,7 @@ class App extends React.Component {
                     <Switch>
                         <Route exact path="/" component={SignIn}></Route>
                         <Route path="/vote/:electionid" component={VoterForm}></Route>
-                        <Route path="/register" component={RegisterForm}></Route>
+                        <Route path="/register" render={() => <RegisterForm district="Alabama"/> }></Route>
                     </Switch>
                 </div>
             </BrowserRouter>
