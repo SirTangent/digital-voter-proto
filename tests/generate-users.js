@@ -6,6 +6,8 @@ const {
     collectionUsers
 } = require("./values");
 
+const DELAY = 200;
+
 const users = firestore.collection(collectionUsers);
 
 const sleep = async (ms) => {
@@ -15,18 +17,9 @@ const sleep = async (ms) => {
 }
 
 // Part 1: Obtain request from server
-const getProfile = async (n) => {
+const getProfile = async (n, nat) => {
     try {
-        const res = await axios.get(`https://randomuser.me/api/?results=${n}&nat=us`);
-
-        // Deconstruct Variables
-        return res.data.results.map((result) => {return {
-            gender: result.gender,
-            name_first: result.name.first,
-            name_last: result.name.last,
-            email: result.email,
-            state: result.location.state
-        }})
+        return (await axios.get(`https://randomuser.me/api/?results=${n}${nat ? "&nat=" + nat : ""}`)).data.results;
     } catch (e) {
         console.error(e);
     }
@@ -43,15 +36,25 @@ const uploadProfile = async (payload) => {
 }
 
 // Pipeline function
-const generateProfiles = async (n, debug) => {
+const generateProfiles = async (n, debug, nat, filter = (docs) => {
+    return docs.filter((result) => true)
+}) => {
     try {
-
-        const docs = await getProfile(n);
+        let docs = await getProfile(n, nat);
+        docs = filter(docs.map( (result) => { return {
+            gender: result.gender,
+            name_first: result.name.first,
+            name_last: result.name.last,
+            email: result.email,
+            city: result.location.city,
+            state: result.location.state,
+            country: result.location.country
+        }}))
 
         for(const idx in docs) {
             const ref = await uploadProfile(docs[idx]);
             debug && console.log(`User for '${docs[idx].email}' created`)
-            await sleep(500);
+            await sleep(DELAY);
         }
     } catch (e) {
       console.error(e);
