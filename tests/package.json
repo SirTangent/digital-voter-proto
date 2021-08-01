@@ -1,0 +1,15 @@
+{
+  "name": "voting-app-tests",
+  "version": "1.0.0",
+  "description": "Critical proof testing scripts used with Firebase.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wyatt Phillips",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "firebase-admin": "^9.11.0"
+  }
+}
