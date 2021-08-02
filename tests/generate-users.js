@@ -1,4 +1,4 @@
-const {firestore} = require("./firebase");
+const {firestore, auth} = require("./firebase");
 const axios = require('axios').default;
 
 const {
@@ -9,6 +9,16 @@ const {
 const DELAY = 200;
 
 const users = firestore.collection(collectionUsers);
+
+// Source: https://stackoverflow.com/questions/1497481/javascript-password-generator by Gumbo
+const generatePassword = (length) => {
+    let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let retVal = "";
+    for (let i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
+}
 
 const sleep = async (ms) => {
     return new Promise((resolve => {
@@ -28,7 +38,13 @@ const getProfile = async (n, nat) => {
 // Part 2: Upload the profile as a document to the collection.
 const uploadProfile = async (payload) => {
     try {
-        return await users.add({...payload});
+        const pwd = generatePassword(8);
+        const auth_user = await auth.createUser({
+            email: payload.email,
+            password: pwd,
+            displayName: `${payload.name_first} ${payload.name_last}`,
+        })
+        return await users.add({uid: auth_user.uid, ...payload});
     } catch (e) {
         console.error(e);
     }
