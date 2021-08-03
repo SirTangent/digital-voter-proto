@@ -16,6 +16,7 @@ import {firestore} from "./firebase/firebase";
 
 import schema from "./firebase/handlers/demo";
 import {sex, isBoundedNumber, isNumber} from "./firebase/type-validators";
+import Header from "./components/layout/Header";
 
 class App extends React.Component {
     constructor(props) {
