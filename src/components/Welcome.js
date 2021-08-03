@@ -46,6 +46,10 @@ const useStyles = makeStyles((theme) => ({
     },
     textAlignRight: {
         textAlign: "right",
+    },
+
+    Typography: {
+        paddingTop: 100,
     }
 }));
 

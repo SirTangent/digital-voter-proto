@@ -43,11 +43,15 @@ class App extends React.Component {
                 <div className="App">
                     {/*Separates each page component by URI.*/}
                     {/*Ex: https://votingportal.com/register -> RegisterForm component*/}
-                    <Switch>
-                        <Route exact path="/" component={SignIn}></Route>
-                        <Route path="/vote/:electionid" component={VoterForm}></Route>
-                        <Route path="/register" component={RegisterForm}></Route>
-                    </Switch>
+                    <Header msg="Hello, WIT!" show={true}></Header>
+                    <div className={"app-page"}>
+                        <Switch>
+                            <Route exact path="/" component={Welcome}></Route>
+                            <Route path="/signIn" component={SignIn}></Route>
+                            <Route path="/vote/:electionid" component={VoterForm}></Route>
+                            <Route path="/register" component={RegisterForm}></Route>
+                        </Switch>
+                    </div>
                 </div>
             </BrowserRouter>
 
