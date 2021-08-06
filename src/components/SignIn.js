@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Link as RouterLink} from "react-router-dom"
+import React, {Fragment, useState} from "react";
+import {Link as RouterLink, useHistory} from "react-router-dom"
 import clsx from 'clsx';
 
 import Avatar from '@material-ui/core/Avatar';
@@ -21,6 +21,12 @@ import DateFnsUtils from '@date-io/date-fns';
 import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers'
 
 import DialogHelp from "./DialogHelp";
+
+// Import Firebase Auth functionality
+import {auth} from "../firebase/firebase";
+import Alert from "./helpers/alert";
+import {FormHelperText} from "@material-ui/core";
+
 
 // Style constants for custom CSS
 const useStyles = makeStyles((theme) => ({
@@ -46,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
     },
     textAlignRight: {
         textAlign: "right",
+    },
+    header: {
+        paddingBottom: "20px"
     }
 }));
 
@@ -53,14 +62,66 @@ const SignIn = () => {
 
     const classes = useStyles();
 
+    const history = useHistory();
+
     // Set initial state and create method for changing state
     const [form, setForm] = useState({
         "id": '',
         "pwd": '',
         "acknowledge": false
     });
+
+    // Set initial state validation
+    const [formValidation, setFormValidation] = useState({});
     // Utility state for tacking dialog box
     const [openDialog, setOpenDialog] = React.useState(false);
+    // Alert options
+    const [alerts, setAlerts] = React.useState([]);
+
+    // Login action call handler
+    const handleSignIn = (id, pwd, acknowledge) => {
+
+        console.log(pwd)
+
+        let vStack = {}
+        if(id.length < 1) {
+            vStack.id = "ID Required but left blank.";
+        }
+        if(pwd.length < 1) {
+            vStack.pwd = "Password Required but left blank.";
+        }
+        if(pwd.length >= 1 && pwd.length < 6) {
+            vStack.pwd = "Password too short, must be at least six characters.";
+        }
+        if(pwd.length >= 1 && pwd.length < 6) {
+            vStack.pwd = "Password too short, must be at least six characters.";
+        }
+        if(!acknowledge) {
+            vStack.acknowledge = "Please acknowledge above.";
+        }
+
+        setFormValidation(vStack);
+
+        if(Object.keys(vStack).length > 0) {
+            console.log(vStack);
+            return;
+        }
+
+        console.log("Attempting login...")
+        auth.signInWithEmailAndPassword(id, pwd)
+            .then((cred) => {
+                console.log(`Successful login as ${cred.user}`);
+                history.push('/authentication')
+            })
+            .catch((e) => {
+                console.log(`error ${e.code}`);
+                console.log(e.message);
+                setAlerts([{
+                    severity: "error",
+                    msg: "Password invalid or ID does not exist."
+                }])
+            })
+    }
 
     // Updates the form state everytime the user changes the content of the input fields
     // The state field to change depends on the name
@@ -93,99 +154,108 @@ const SignIn = () => {
 
     // Contains the JSX (HTML with JS) content this is displayed to the user
     return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <HowToVoteIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Alabama Online Voting Portal
-                </Typography>
-                <form className={classes.form} noValidate>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <Grid container spacing={2}>
-                            {/*ID Field*/}
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    type="text"
-                                    required
-                                    id="id"
-                                    label="Issued ID"
-                                    name="id"
-                                    value={form.id}
-                                    onChange={handleFieldUpdate}
-                                    fullWidth
-                                    autoFocus
-                                />
-                            </Grid>
-                            {/*Passcode Box*/}
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    type="password"
-                                    required
-                                    id="pwd"
-                                    label="Issued Passcode"
-                                    name="pwd"
-                                    value={form.pwd}
-                                    onChange={handleFieldUpdate}
-                                    fullWidth
-                                    autoFocus
-                                />
-                            </Grid>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
 
-                            {/*Agreement Checkbox*/}
-                            <Grid item xs={12} >
-                                <FormControlLabel
-                                    control={<Checkbox value="remember" color="primary" id="acknowledge" name="acknowledge" checked={form.acknowledge} onChange={handleCheckUpdate} />}
-                                    label="I certify the provided information is my own and understand this system is for authorized use. "
-                                />
-                            </Grid>
 
-                            {/*Captcha UI*/}
-                            <Grid item xs={12}>
-                                <div className="g-recaptcha" data-sitekey="6LesPaoaAAAAALo9omhPT07Ry6MrLHg_MuP9D1WA"></div>
-                            </Grid>
+                <div className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <HowToVoteIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5" className={classes.header}>
+                        Alabama Online Voting Portal
+                    </Typography>
+                    {
+                        alerts.map(({severity, msg}) => (<Alert severity={severity} msg={msg}></Alert>))
+                    }
+                    <form className={classes.form} noValidate>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <Grid container spacing={2}>
+                                {/*ID Field*/}
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        type="text"
+                                        required
+                                        id="id"
+                                        label="Issued ID"
+                                        name="id"
+                                        value={form.id}
+                                        error={formValidation.id != null}
+                                        helperText={formValidation.id || ""}
+                                        onChange={handleFieldUpdate}
+                                        fullWidth
+                                        autoFocus
+                                    />
+                                </Grid>
+                                {/*Passcode Box*/}
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        type="password"
+                                        required
+                                        id="pwd"
+                                        label="Issued Passcode"
+                                        name="pwd"
+                                        value={form.pwd}
+                                        error={formValidation.pwd != null}
+                                        helperText={formValidation.pwd || ""}
+                                        onChange={handleFieldUpdate}
+                                        fullWidth
+                                        autoFocus
+                                    />
+                                </Grid>
 
-                            {/*Sign in button*/}
-                            <Grid item xs={12} >
-                                <RouterLink to="/authentication">
+                                {/*Agreement Checkbox*/}
+                                <Grid item xs={12} >
+                                    <FormControlLabel
+                                        control={<Checkbox value="remember" color="primary" id="acknowledge" name="acknowledge" checked={form.acknowledge} onChange={handleCheckUpdate} />}
+                                        label="I certify the provided information is my own and understand this system is for authorized use. "
+                                    />
+                                    <FormHelperText error={formValidation.acknowledge}>{formValidation.acknowledge || ""}</FormHelperText>
+                                </Grid>
+
+                                {/*Captcha UI*/}
+                                <Grid item xs={12}>
+                                    <div className="g-recaptcha" data-sitekey="6LesPaoaAAAAALo9omhPT07Ry6MrLHg_MuP9D1WA"></div>
+                                </Grid>
+
+                                {/*Sign in button*/}
+                                <Grid item xs={12} >
                                     <Button
                                         fullWidth
                                         variant="contained"
                                         color="primary"
                                         className={classes.submit}
+                                        onClick={(e) => {handleSignIn(form.id, form.pwd, form.acknowledge)}}
                                     >
                                         Sign In
                                     </Button>
-                                </RouterLink>
+                                </Grid>
+
+                                {/*Additional options*/}
+                                <Grid item xs={6}>
+                                    <a href="#" variant="body2" onClick={handleClickOpen}>
+                                        Need help?
+                                    </a>
+                                </Grid>
+                                <Grid item xs={6} className={classes.textAlignRight}>
+                                    <RouterLink to="/authentication" variant="body2">
+
+                                        Register To Vote
+                                    </RouterLink>
+                                </Grid>
                             </Grid>
+                        </MuiPickersUtilsProvider>
+                    </form>
 
-                            {/*Additional options*/}
-                            <Grid item xs={6}>
-                                <a href="#" variant="body2" onClick={handleClickOpen}>
-                                    Need help?
-                                </a>
-                            </Grid>
-                            <Grid item xs={6} className={classes.textAlignRight}>
-                                <RouterLink to="/authentication" variant="body2">
+                    <DialogHelp open={openDialog} handleClose={handleClose}></DialogHelp>
 
-                                    Register To Vote
-                                </RouterLink>
-                            </Grid>
-                        </Grid>
-                    </MuiPickersUtilsProvider>
-                </form>
-
-                <DialogHelp open={openDialog} handleClose={handleClose}></DialogHelp>
-
-            </div>
-            <Box mt={8} className={classes.textAlignCenter}>
-                <p>Copyright 2021 AC Voting Group. This system is not affiliated with the United States Government or any legal system.</p>
-            </Box>
-        </Container>
+                </div>
+                <Box mt={8} className={classes.textAlignCenter}>
+                    <p>Copyright 2021 AC Voting Group. This system is not affiliated with the United States Government or any legal system.</p>
+                </Box>
+            </Container>
     );
 }
 
