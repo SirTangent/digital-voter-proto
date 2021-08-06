@@ -1,6 +1,6 @@
 const Ajv = require("ajv")
 const ajv = new Ajv()
-const {legalName, stateID, yesNo, telephone} = require("../expressions")
+const {legalName, stateID, telephone} = require("../expressions")
 
 // Include additional formats
 require("ajv-formats")(ajv)
@@ -11,38 +11,57 @@ export const sexes = ["Male", "Female"]
 export const RegistrationSchema = {
     type: "object",
     properties: {
-        name: {type: "string", pattern: legalName},
+        citizen: {type: "boolean"},
+        ofLegalAge: {type: "boolean"},
+
+        name: {
+            type: "object", properties: {
+                nameFirst: {type: "string", pattern: legalName},
+                nameMiddle: {type: "string"},
+                nameLast: {type: "string", pattern: legalName},
+                suffix: {type: "string"}
+            }
+        },
+        nameFormer: {
+            type: "object", properties: {
+                nameFirst: {type: "string"},
+                nameMiddle: {type: "string"},
+                nameLast: {type: "string"},
+                suffix: {type: "string"}
+            }
+        },
+
         dob: {type: "string", format: "date"},
         stateID: {type: "string", pattern: stateID},
-        acknowledge: {type: "boolean", const: true},
-        legalName: {type: "string", pattern: legalName},
-        race: {type: "string", enum: races},
-        sex: {type: "string", enum: sexes},
-        citizen: {type: "string", enum: yesNo},
-        ofLegalAge: {type: "string", enum: yesNo},
-        firstName: {type: "string", pattern: legalName},
-        middleName: {type: "string", pattern: legalName},
-        lastName: {type: "string", pattern: legalName},
-        suffix: {type: "string", pattern: legalName},
         telephone: {type: "string", pattern: telephone},
         email: {type: "string", format: "email"},
         ssn: {type: "string", pattern: "[0-9]{4}"},
+        hasStateLicense: {type: "boolean"},
+
+        race: {type: "string", enum: races},
+        sex: {type: "string", enum: sexes},
 
         // TODO: Add specific validators
-        residentialAddress: {type: "string"},
-        residentialCity: {type: "string"},
-        residentialState: {type: "string"},
-        residentialZip: {type: "string", pattern: "[0-9\\-]*"},
-        birthAddress: {type: "string"},
-        birthCity: {type: "string"},
-        birthState: {type: "string"},
-        birthZip: {type: "string"},
+        residentialAddress: {type: "object", properties: {
+                street: {type: "string"},
+                city: {type: "string"},
+                state: {type: "string"},
+                zip: {type: "string", pattern: "[0-9\\-]*"},
+            }
+        },
+        birthAddress: {type: "object", properties: {
+                street: {type: "string"},
+                city: {type: "string"},
+                state: {type: "string"},
+                zip: {type: "string", pattern: "[0-9\\-]*"},
+            }
+        },
 
+        acknowledge: {type: "boolean", const: true},
         todaysDate: {type: "string", format: "date"},
     },
 
     // TODO: What is required?
-    required: ["firstName", "lastName"],
     additionalProperties: false
 }
 
