@@ -31,7 +31,7 @@ export const RegistrationSchema = {
             }
         },
 
-        dob: {type: "string", format: "date"},
+        dob: {type: "object"},
         stateID: {type: "string", pattern: stateID},
         telephone: {type: "string", pattern: telephone},
         email: {type: "string", format: "email"},
@@ -62,7 +62,7 @@ export const RegistrationSchema = {
     },
 
     // TODO: What is required?
-    additionalProperties: false
+    additionalProperties: true
 }
 
 export default ajv.compile(RegistrationSchema);

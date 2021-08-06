@@ -56,22 +56,31 @@ const RegisterForm = ({district = ""}) => {
     const classes = useStyles();
 
     const [form, setForm] = useState({
-        "name": '',
-        "dob": null,
-        "stateID": '',
-        "acknowledge": false,
-        "legalName" : '',
-        "race" : null,
-        "sex" : null,
-        "citizen" : null,
-        "ofLegalAge" : null,
-        "firstName" : null,
-        "lastName" : null,
-        "middleName" : null,
-        "suffix" : null,
-        "telephone" : null,
-        "email" : null,
-        "ssn" : null,
+
+        nameFirst: "",
+        nameMiddle: "",
+        nameLast: "",
+        nameSuffix: "",
+        nameFormalFirst: "",
+        nameFormalMiddle: "",
+        nameFormalLast: "",
+        nameFormalSuffix: "",
+        dob: null,
+        stateID: '',
+        acknowledge: false,
+        hasStateLicense: false,
+        legalName: '',
+        race : null,
+        sex : null,
+        citizen : null,
+        ofLegalAge : null,
+        firstName : null,
+        lastName : null,
+        middleName : null,
+        suffix : null,
+        telephone : null,
+        email : null,
+        ssn : null,
         residentialAddress: undefined,
         residentialCity: undefined,
         residentialState: undefined,
@@ -101,6 +110,15 @@ const RegisterForm = ({district = ""}) => {
 
     const handleGroupCheckUpdate = (e) => {
         console.log(e.target.name)
+
+        if(e.target.value == "true" || e.target.value == "false") {
+            setForm({
+                ...form,
+                [e.target.name]: e.target.value == "true"
+            });
+            return;
+        }
+
         setForm({
             ...form,
             [e.target.name]: e.target.value
@@ -142,18 +160,18 @@ const RegisterForm = ({district = ""}) => {
                             <Grid item xs ={12}>
                                 <section>1) Are you a citizen of the United States of America?</section>
                                 <FormControlLabel
-                                    control={<Checkbox value="Yes"
+                                    control={<Checkbox value="true"
                                                        color="primary"
                                                        name="citizen"
-                                                       checked={form.citizen == "Yes"}
+                                                       checked={form.citizen == true}
                                                        onChange={handleGroupCheckUpdate} />}
                                     label="Yes"
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox value="No"
+                                    control={<Checkbox value="false"
                                                        color="primary"
                                                        name="citizen"
-                                                       checked={form.citizen == "No"}
+                                                       checked={form.citizen == false}
                                                        onChange={handleGroupCheckUpdate} />}
                                     label="No"
                                 />
@@ -161,18 +179,18 @@ const RegisterForm = ({district = ""}) => {
                             <Grid item xs ={12}>
                                 <section>2) Will you be 18 years of age on or before election day?</section>
                                 <FormControlLabel
-                                    control={<Checkbox value="Yes"
+                                    control={<Checkbox value="true"
                                                        color="primary"
                                                        name="ofLegalAge"
-                                                       checked={form.ofLegalAge == "Yes"}
+                                                       checked={form.ofLegalAge == true}
                                                        onChange={handleGroupCheckUpdate} />}
                                     label="Yes"
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox value="No"
+                                    control={<Checkbox value="false"
                                                        color="primary"
                                                        name="ofLegalAge"
-                                                       checked={form.ofLegalAge == "No"}
+                                                       checked={form.ofLegalAge == false}
                                                        onChange={handleGroupCheckUpdate} />}
                                     label="No"
                                 />
@@ -183,8 +201,8 @@ const RegisterForm = ({district = ""}) => {
                                     variant="outlined"
                                     required
                                     label="First"
-                                    name="firstName"
-                                    value={form.firstName}
+                                    name="nameFirst"
+                                    value={form.nameFirst}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -192,8 +210,8 @@ const RegisterForm = ({district = ""}) => {
                                 <TextField
                                     variant="outlined"
                                     label="Middle"
-                                    name="middleName"
-                                    value={form.middleName}
+                                    name="nameMiddle"
+                                    value={form.nameMiddle}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -202,8 +220,8 @@ const RegisterForm = ({district = ""}) => {
                                     variant="outlined"
                                     required
                                     label="Last"
-                                    name="lastName"
-                                    value={form.lastName}
+                                    name="nameLast"
+                                    value={form.nameLast}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -212,8 +230,8 @@ const RegisterForm = ({district = ""}) => {
                                     variant="outlined"
                                     required
                                     label="Suffix"
-                                    name="suffix"
-                                    value={form.suffix}
+                                    name="nameSuffix"
+                                    value={form.nameSuffix}
                                     onChange={handleFieldUpdate}
                                     fullWidth
                                     autoFocus
@@ -333,8 +351,8 @@ const RegisterForm = ({district = ""}) => {
                             <Grid item xs={12}>
                                 <FormControlLabel
                                     control={<Checkbox color="primary"
-                                                       name="acknowledge"
-                                                       checked={form.acknowledge}
+                                                       name="hasStateLicense"
+                                                       checked={form.hasStateLicense}
                                                        onChange={handleCheckUpdate} />}
                                     label="I do not have an Alabama driver's license or Alabama non-driver ID or a Social Security number."
                                 />
@@ -472,10 +490,10 @@ const RegisterForm = ({district = ""}) => {
                             </Grid>
                             <Grid item xs={12} >
                                 <FormControlLabel
-                                    control={<Checkbox value="authorize"
+                                    control={<Checkbox value="true"
                                                        color="primary"
                                                        name="acknowledge"
-                                                       checked={form.acknowledge}
+                                                       checked={form.acknowledge == true}
                                                        onChange={handleCheckUpdate} />}
                                     label="I certify the provided information is my own and understand this system is for authorized use. "
                                 />
@@ -504,7 +522,7 @@ const RegisterForm = ({district = ""}) => {
                             <Grid item xs={12}>
                                 <div className="g-recaptcha" data-sitekey="6LesPaoaAAAAALo9omhPT07Ry6MrLHg_MuP9D1WA"></div>
                             </Grid>
-                            
+
                             <Grid item xs={12} >
                                 <RouterLink to="#">
                                     <Button
