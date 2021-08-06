@@ -11,8 +11,15 @@ import RegisterForm from "./components/RegisterForm";
 import Ballot from "./components/Ballot";
 import VoterIdDocuments from "./components/VoterIdDocuments";
 import Authentication from "./components/Authentication";
+import RegistrationConfirmation from "./components/RegistrationConfirmation";
+import PreBallot from "./components/PreBallot";
+import DialogConfirmVote from "./components/DialogConfirmVote";
 
 import {firestore} from "./firebase/firebase";
+
+import schema from "./firebase/handlers/demo";
+import {sex, isBoundedNumber, isNumber} from "./firebase/type-validators";
+import Header from "./components/layout/Header";
 
 class App extends React.Component {
     constructor(props) {
@@ -32,14 +39,23 @@ class App extends React.Component {
                 <div className="App">
                     {/*Separates each page component by URI.*/}
                     {/*Ex: https://votingportal.com/register -> RegisterForm component*/}
-                    <Switch>
-                        <Route exact path="/" component={SignIn}></Route>
-                        <Route path="/vote/:electionid" component={VoterForm}></Route>
-                        <Route path="/register" render={() => <RegisterForm district="Alabama"/> }></Route>
-                    </Switch>
+                    <Header msg="Alabama Voting Portal" show={true}></Header>
+                    <div className={"app-page"}>
+                        <Switch>
+                            <Route exact path="/" component={Welcome}></Route>
+                            <Route path="/signIn" component={SignIn}></Route>
+                            <Route path="/vote/:electionid" component={VoterForm}></Route>
+                            <Route path="/register" component={RegisterForm}></Route>
+                            <Route path="/voter-documents" component={VoterIdDocuments}></Route>
+                            <Route path="/registration-confirmation" component={RegistrationConfirmation}></Route>
+                            <Route path="/authentication" component={Authentication}></Route>
+                            <Route path="/ballot" component={Ballot}></Route>
+                            <Route path="/pre-ballot" component={PreBallot}></Route>
+                            <Route path="confirm-vote" component={DialogConfirmVote}></Route>
+                        </Switch>
+                    </div>
                 </div>
             </BrowserRouter>
-
         )
     }
 

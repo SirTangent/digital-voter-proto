@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from 'react';
 import {Link as RouterLink} from "react-router-dom"
 import clsx from 'clsx';
 
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(3),
     },
-    submit: {
+    continue: {
         margin: theme.spacing(1, 0, 1),
     },
     textAlignCenter: {
@@ -46,53 +46,32 @@ const useStyles = makeStyles((theme) => ({
     },
     textAlignRight: {
         textAlign: "right",
-    },
-
-    Typography: {
-        paddingTop: 100,
     }
 }));
 
-const Welcome = () => {
+const PreBallot = () => {
     const classes = useStyles();
 
     return(
-        <Container>
-            <div align={"center"}>
-                <Typography component="h1" variant="h5">
-                    Welcome to the Alabama Voting Portal
-                </Typography>
-            </div>
-            <section>Please choose from the following selections</section>
-            <Grid item xs={12}>
-                <RouterLink to="/register">
+        <Container component="main" maxWidth="xs">
+            <Typography>
+                You have successfully logged in to the voter portal. The next page will be the official ballot. Please make sure you're ready.
+            </Typography>
+            <Grid item xs={12} >
+                <RouterLink to="/ballot">
                     <Button
                         fullWidth
                         variant="contained"
                         color="primary"
-                        className={classes.submit}
+                        className={classes.continue}
                     >
-                        I have not registered for online access yet
+                        Continue to ballot
                     </Button>
                 </RouterLink>
             </Grid>
-            <Grid item xs={12}>
-                <RouterLink to="/signIn">
-                    <Button
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                    >
-                        I have already registered for online access, and I have received my log in credentials
-                    </Button>
-                </RouterLink>
-            </Grid>
-
-
         </Container>
-
     );
-}
 
-export default Welcome;
+};
+
+export default PreBallot;

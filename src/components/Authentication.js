@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Link as RouterLink} from "react-router-dom"
 import clsx from 'clsx';
 
+import DialogConfirmVote from "./DialogConfirmVote";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -46,10 +47,23 @@ const useStyles = makeStyles((theme) => ({
     },
     textAlignRight: {
         textAlign: "right",
+    },
+    media: {
+        height: '256px'
+    },
+    selected: {
+        border: 'tomato 4px solid'
+    },
+    m2: {
+        margin: '16px'
     }
 }));
 
 const Authentication = () => {
+
+    const [expireTime, setExpiretime] = useState(new Date("April 15, 2021 21:00:00"))
+    const [selection, setSelection] = useState(null);
+    const [openDialog, setOpenDialog] = React.useState(false);
 
     const classes = useStyles();
 
@@ -64,6 +78,19 @@ const Authentication = () => {
             [e.target.name]: e.target.value
         });
     }
+
+    const handleSelection = (val) => {
+        setSelection(val);
+    }
+
+    // Open and close dialog
+    const handleClickOpen = () => {
+        setOpenDialog(true);
+    };
+
+    const handleClose = () => {
+        setOpenDialog(false);
+    };
 
     return (
         <Container>
@@ -87,7 +114,7 @@ const Authentication = () => {
                             autoFocus
                         />
                         <Grid item xs={12} >
-                            <RouterLink to="/ballot">
+                            <RouterLink to="/pre-ballot">
                                 <Button
                                     maxWidth='xl'
                                     variant="contained"

@@ -22,6 +22,7 @@ import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers'
 
 import DialogHelp from "./DialogHelp";
 import {Check} from "@material-ui/icons";
+import DialogConfirmVote from "./DialogConfirmVote";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -46,10 +47,23 @@ const useStyles = makeStyles((theme) => ({
     },
     textAlignRight: {
         textAlign: "right",
+    },
+    media: {
+        height: '256px'
+    },
+    selected: {
+        border: 'tomato 4px solid'
+    },
+    m2: {
+        margin: '16px'
     }
 }));
 
 const Ballot = () => {
+
+    const [expireTime, setExpiretime] = useState(new Date("April 15, 2021 21:00:00"))
+    const [selection, setSelection] = useState(null);
+    const [openDialog, setOpenDialog] = React.useState(false);
 
     const classes = useStyles();
 
@@ -85,6 +99,19 @@ const Ballot = () => {
             [e.target.name]: e.target.value
         });
     }
+
+    const handleSelection = (val) => {
+        setSelection(val);
+    }
+
+    // Open and close dialog
+    const handleClickOpen = () => {
+        setOpenDialog(true);
+    };
+
+    const handleClose = () => {
+        setOpenDialog(false);
+    };
 
 
     return(
@@ -314,6 +341,19 @@ const Ballot = () => {
                         <Grid item xs = {12}>
                             <section>For Dekalb County Constable, District NO. </section>
                         </Grid>
+                    </Grid>
+                    <DialogConfirmVote open={openDialog} handleClose={handleClose} selection={selection}></DialogConfirmVote>
+                    <Grid item xs={12} >
+                        <RouterLink to="/vote/:electionid">
+                            <Button
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.continue}
+                            >
+                                Continue
+                            </Button>
+                        </RouterLink>
                     </Grid>
                 </MuiPickersUtilsProvider>
             </form>
