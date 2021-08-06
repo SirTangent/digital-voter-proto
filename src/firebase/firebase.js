@@ -9,6 +9,7 @@ const nodenv = process.env.NODE_ENV || 'development'
 
 firebase.initializeApp(prod);
 const firestore = firebase.firestore();
+const auth = firebase.auth();
 
 // TODO: Add emulator support
 // Switch context depending on environment
@@ -17,4 +18,4 @@ const firestore = firebase.firestore();
 //     console.log("Firestore emulator active!")
 // }
 
-module.exports = {firebase, firestore};
+module.exports = {firebase, firestore, auth};

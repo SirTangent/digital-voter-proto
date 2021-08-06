@@ -16,8 +16,6 @@ import PreBallot from "./components/PreBallot";
 import DialogConfirmVote from "./components/DialogConfirmVote";
 import BallotSubmission from "./components/BallotSubmission";
 
-import {firestore} from "./firebase/firebase";
-
 import Header from "./components/layout/Header";
 
 class App extends React.Component {
