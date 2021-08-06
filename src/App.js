@@ -31,14 +31,6 @@ class App extends React.Component {
 
     componentDidMount() {
 
-        console.log(isBoundedNumber(18,100, true)("3e"));
-
-        // Testing listener
-        firestore.collection("test_collection").onSnapshot((snapshot) => {
-          snapshot.forEach((doc) => {
-              console.log(doc.data())
-          })
-        })
     }
 
     render() {
@@ -64,7 +56,6 @@ class App extends React.Component {
                     </div>
                 </div>
             </BrowserRouter>
-
         )
     }
 
