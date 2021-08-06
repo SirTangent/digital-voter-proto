@@ -170,7 +170,7 @@ const SignIn = () => {
                                 </a>
                             </Grid>
                             <Grid item xs={6} className={classes.textAlignRight}>
-                                <RouterLink to="/registration" variant="body2">
+                                <RouterLink to="/authentication" variant="body2">
                                     Register To Vote
                                 </RouterLink>
                             </Grid>

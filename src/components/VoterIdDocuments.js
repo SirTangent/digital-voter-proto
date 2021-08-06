@@ -124,6 +124,18 @@ const VoterIdDocuments = () => {
                                 />
                             </Button>
                         </Grid>
+                        <Grid item xs={12} >
+                            <RouterLink to="/registration-confirmation">
+                                <Button
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.continue}
+                                >
+                                    Complete application
+                                </Button>
+                            </RouterLink>
+                        </Grid>
                     </MuiPickersUtilsProvider>
                 </form>
             </div>

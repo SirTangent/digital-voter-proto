@@ -539,7 +539,7 @@ const RegisterForm = () => {
                             </Grid>
 
                             <Grid item xs={12}>
-                                <RouterLink to="/" variant="body2">
+                                <RouterLink to="/register" variant="body2">
                                     Go Back
                                 </RouterLink>
                             </Grid>
