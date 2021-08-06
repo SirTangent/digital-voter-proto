@@ -1,4 +1,6 @@
 import React from "react";
+import {Link} from "react-router-dom";
+
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -26,9 +28,11 @@ const DialogConfirmVote = ({open, handleClose, selection}) => {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose} color="primary">
-                    Cast Ballot
-                </Button>
+                <Link to="/ballot-submission">
+                    <Button color="primary">
+                        Cast Ballot
+                    </Button>
+                </Link>
                 <Button onClick={handleClose} color="primary" autoFocus>
                     Close
                 </Button>
