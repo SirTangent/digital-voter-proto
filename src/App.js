@@ -14,11 +14,10 @@ import Authentication from "./components/Authentication";
 import RegistrationConfirmation from "./components/RegistrationConfirmation";
 import PreBallot from "./components/PreBallot";
 import DialogConfirmVote from "./components/DialogConfirmVote";
+import BallotSubmission from "./components/BallotSubmission";
 
 import {firestore} from "./firebase/firebase";
 
-import schema from "./firebase/handlers/demo";
-import {sex, isBoundedNumber, isNumber} from "./firebase/type-validators";
 import Header from "./components/layout/Header";
 
 class App extends React.Component {
@@ -51,7 +50,8 @@ class App extends React.Component {
                             <Route path="/authentication" component={Authentication}></Route>
                             <Route path="/ballot" component={Ballot}></Route>
                             <Route path="/pre-ballot" component={PreBallot}></Route>
-                            <Route path="confirm-vote" component={DialogConfirmVote}></Route>
+                            <Route path="/confirm-vote" component={DialogConfirmVote}></Route>
+                            <Route path="/ballot-submission" component={BallotSubmission}></Route>
                         </Switch>
                     </div>
                 </div>

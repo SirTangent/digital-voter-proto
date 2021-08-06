@@ -15,7 +15,7 @@ const Header = (props) => (
             </Typography>
         </Toolbar>
         {
-            props.show ? <Button variant={"success"}>dwadfwa</Button> : null
+            //props.show ? <Button variant={"success"}>dwadfwa</Button> : null
         }
 
     </AppBar>
