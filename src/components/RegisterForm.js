@@ -142,10 +142,10 @@ const RegisterForm = ({district = ""}) => {
                             <Grid item xs ={12}>
                                 <section>1) Are you a citizen of the United States of America?</section>
                                 <FormControlLabel
-                                    control={<Checkbox value="Yes"
+                                    control={<Checkbox value={true}
                                                        color="primary"
                                                        name="citizen"
-                                                       checked={form.citizen == "Yes"}
+                                                       checked={form.citizen}
                                                        onChange={handleGroupCheckUpdate} />}
                                     label="Yes"
                                 />

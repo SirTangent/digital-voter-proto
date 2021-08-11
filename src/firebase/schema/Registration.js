@@ -62,7 +62,7 @@ export const RegistrationSchema = {
     },
 
     // TODO: What is required?
-    additionalProperties: false
+    additionalProperties: true
 }
 
 export default ajv.compile(RegistrationSchema);
